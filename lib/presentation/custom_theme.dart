@@ -12,8 +12,10 @@ class CustomTheme {
         selectedIconTheme: IconThemeData(color: ConstantColors.orange),
         unselectedIconTheme: IconThemeData(color: ConstantColors.beige),
         unselectedItemColor: ConstantColors.beige,
-        showSelectedLabels: false,
-        backgroundColor: ConstantColors.lightGrey,
+        showSelectedLabels: true,
+        selectedItemColor: ConstantColors.orange,
+        backgroundColor: ConstantColors.transparent,
+        elevation: 0.0,
       ),
       fontFamily: 'munchkin',
       buttonTheme: const ButtonThemeData(
