@@ -9,6 +9,13 @@ import 'package:munchkin_counter/screens/navigation_screens/levels_screen.dart';
 import 'package:munchkin_counter/screens/navigation_screens/players_screen.dart';
 import 'package:munchkin_counter/screens/navigation_screens/settings_screen.dart';
 
+class BottomItemData {
+  final IconData icon;
+  final double size;
+  final String label;
+  BottomItemData(this.icon, this.size, this.label);
+}
+
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
 
@@ -25,6 +32,14 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     const AddPlayerScreen(),
     const DiceScreen(),
     const SettigsScreen(),
+  ];
+
+  List<BottomItemData> data = [
+    BottomItemData(CustomIcons.ax, 28.0, 'Players'),
+    BottomItemData(CustomIcons.fortress, 28.0, 'Levels'),
+    BottomItemData(CustomIcons.add, 60.0, ''),
+    BottomItemData(CustomIcons.dice, 28.0, 'Dice'),
+    BottomItemData(CustomIcons.settings, 28.0, 'Settings'),
   ];
 
   void _onItemTapped(int index) {
@@ -46,10 +61,10 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             (width * 0.22).toDouble(),
           ),
           painter: BottomNavigationBarBackgroundPainter(shadows: [
-            Shadow(
-              offset: const Offset(1, -4),
+            const Shadow(
+              offset: Offset(1, -4),
               blurRadius: 5.0,
-              color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+              color: ConstantColors.shadow,
             )
           ], shapeColor: Colors.grey),
         ),
@@ -57,31 +72,10 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             type: BottomNavigationBarType.fixed,
             onTap: _onItemTapped,
             currentIndex: _selectedIndex,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    CustomIcons.ax,
-                    size: 28,
-                  ),
-                  label: 'Players'),
-              BottomNavigationBarItem(
-                  icon: Icon(CustomIcons.fortress, size: 28), label: 'Levels'),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  CustomIcons.add,
-                  size: 60,
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(CustomIcons.dice, size: 28), label: 'Dice'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    CustomIcons.settings,
-                    size: 28,
-                  ),
-                  label: 'Settings'),
-            ]),
+            items: data
+                .map((data) => BottomNavigationBarItem(
+                    icon: Icon(data.icon, size: data.size), label: data.label))
+                .toList()),
       ]),
     );
   }
@@ -146,17 +140,17 @@ class BottomNavigationBarBackgroundPainter extends CustomPainter {
     path.close();
 
     canvas.clipRect(Rect.fromLTWH(0.0, 0.0, size.width, size.height));
-    for (var s in shadows) {
+    for (var color in shadows) {
       canvas.save();
-      canvas.translate(s.offset.dx, s.offset.dy);
-      canvas.drawShadow(path, s.color, sqrt(s.blurRadius), false);
+      canvas.translate(color.offset.dx, color.offset.dy);
+      canvas.drawShadow(path, color.color, sqrt(color.blurRadius), false);
       canvas.restore();
     }
     canvas.drawPath(path, _paint);
 
-    Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = const Color(0xff303033).withOpacity(1.0);
-    canvas.drawPath(path, paint0Fill);
+    Paint paintFill = Paint()..style = PaintingStyle.fill;
+    paintFill.color = ConstantColors.lightGrey;
+    canvas.drawPath(path, paintFill);
   }
 
   @override
