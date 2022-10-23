@@ -5,6 +5,10 @@ class SettigsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('Settigs page'));
+    return const Center(
+        child: Text(
+      'Will be later...',
+      style: TextStyle(color: Colors.amber, fontSize: 30),
+    ),);
   }
 }

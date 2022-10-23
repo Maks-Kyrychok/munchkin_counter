@@ -16,7 +16,7 @@ class PlayerModel {
 
 enum Sex {
   male,
-  famele,
+  female,
 }
 
 enum PlayerColor {
